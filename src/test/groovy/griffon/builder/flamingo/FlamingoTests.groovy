@@ -27,8 +27,8 @@ class FlamingoTests extends GroovySwingTestCase {
          def flamingo = new FlamingoBuilder()
          def cmd = flamingo.commandButton("CMD")
          assert cmd.text == "CMD"
-         cmd = flamingo.commandButton("CMD", icon: flamingo.svgIcon(resource: "icons/edit-paste.svg", class: FlamingoTests))
-         assert cmd.text == "CMD"
+         //cmd = flamingo.commandButton("CMD", icon: flamingo.svgIcon(resource: "icons/edit-paste.svg", class: FlamingoTests))
+         //assert cmd.text == "CMD"
 
          /*
          boolean called = false
