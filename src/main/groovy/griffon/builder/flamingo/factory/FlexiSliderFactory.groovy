@@ -32,7 +32,7 @@ class FlexiSliderFactory extends AbstractFactory {
             throws InstantiationException, IllegalAccessException {
         builder.context.ranges = []
         builder.context.controlPoints = []
-        builder.context.flexiId = attributes[builder.getAt(SwingBuilder.DELEGATE_PROPERTY_OBJECT_ID) ?: SwingBuilder.DEFAULT_DELEGATE_PROPERTY_OBJECT_ID]
+        builder.context.flexiId = attributes.id
         builder.context.constraints = attributes[LayoutFactory.DELEGATE_PROPERTY_CONSTRAINT] ?: attributes[LayoutFactory.DEFAULT_DELEGATE_PROPERTY_CONSTRAINT]
         return [:]
     }
