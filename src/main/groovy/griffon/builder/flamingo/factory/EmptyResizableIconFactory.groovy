@@ -16,8 +16,7 @@
 
 package griffon.builder.flamingo.factory
 
-import java.awt.Dimension
-import org.jvnet.flamingo.common.icon.EmptyResizableIcon
+import org.pushingpixels.flamingo.api.common.icon.EmptyResizableIcon
 
 /**
  * @author Andres Almiray <aalmiray@users.sourceforge.com>

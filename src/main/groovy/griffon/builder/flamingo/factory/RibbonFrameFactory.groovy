@@ -16,9 +16,10 @@
 
 package griffon.builder.flamingo.factory
 
-import javax.swing.JMenuBar
 import groovy.swing.factory.RootPaneContainerFactory
-import org.jvnet.flamingo.ribbon.*
+import org.pushingpixels.flamingo.api.ribbon.JRibbonFrame
+
+import javax.swing.*
 
 /**
  * @author Danno Ferrin

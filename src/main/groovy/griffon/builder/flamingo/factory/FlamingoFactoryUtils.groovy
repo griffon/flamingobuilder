@@ -16,11 +16,17 @@
 
 package griffon.builder.flamingo.factory
 
-import java.awt.Dimension
-import java.awt.Image
-import javax.swing.Action
-import org.jvnet.flamingo.common.*
-import org.jvnet.flamingo.common.icon.*
+import org.pushingpixels.flamingo.api.common.AbstractCommandButton
+import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState
+import org.pushingpixels.flamingo.api.common.JCommandButton
+import org.pushingpixels.flamingo.api.common.JCommandButtonStrip
+import org.pushingpixels.flamingo.api.common.icon.EmptyResizableIcon
+import org.pushingpixels.flamingo.api.common.icon.ImageWrapperResizableIcon
+import org.pushingpixels.flamingo.api.common.icon.ResizableIcon
+
+import javax.swing.*
+import java.awt.*
+import java.util.List
 
 /**
  * @author Andres Almiray <aalmiray@users.sourceforge.com>

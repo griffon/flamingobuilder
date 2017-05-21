@@ -16,8 +16,10 @@
 
 package griffon.builder.flamingo.impl
 
-import org.jvnet.flamingo.ribbon.*
-import org.jvnet.flamingo.common.icon.*
+import org.pushingpixels.flamingo.api.common.icon.EmptyResizableIcon
+import org.pushingpixels.flamingo.api.ribbon.AbstractRibbonBand
+import org.pushingpixels.flamingo.api.ribbon.JRibbonBand
+import org.pushingpixels.flamingo.api.ribbon.RibbonTask
 
 /**
  * @author Andres Almiray <aalmiray@users.sourceforge.com>

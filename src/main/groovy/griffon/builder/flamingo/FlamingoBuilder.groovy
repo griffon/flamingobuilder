@@ -16,10 +16,11 @@
 
 package griffon.builder.flamingo
 
-import groovy.swing.SwingBuilder
 import griffon.builder.flamingo.factory.*
-
-import org.jvnet.flamingo.common.*
+import groovy.swing.SwingBuilder
+import org.pushingpixels.flamingo.api.common.JCommandButton
+import org.pushingpixels.flamingo.api.common.JCommandMenuButton
+import org.pushingpixels.flamingo.api.common.JCommandToggleButton
 
 /**
  * @author Andres Almiray <aalmiray@users.sourceforge.net>
@@ -50,9 +51,9 @@ public class FlamingoBuilder extends SwingBuilder {
    }
 
    public void registerFlamingoSlider() {
-      registerFactory("flexiSlider", new FlexiSliderFactory())
-      registerFactory("range", new FlexiRangeFactory())
-      registerFactory("controlPoint", new FlexiControlPointFactory())
+//      registerFactory("flexiSlider", new FlexiSliderFactory())
+//      registerFactory("range", new FlexiRangeFactory())
+//      registerFactory("controlPoint", new FlexiControlPointFactory())
    }
 
    public void registerFlamingoBreadcrumb() {

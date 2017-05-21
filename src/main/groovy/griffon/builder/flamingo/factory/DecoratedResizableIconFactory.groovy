@@ -16,10 +16,8 @@
 
 package griffon.builder.flamingo.factory
 
-import java.awt.Dimension
-
-import org.jvnet.flamingo.common.icon.DecoratedResizableIcon
-import org.jvnet.flamingo.common.icon.ResizableIcon
+import org.pushingpixels.flamingo.api.common.icon.DecoratedResizableIcon
+import org.pushingpixels.flamingo.api.common.icon.ResizableIcon
 
 /**
  * @author Andres Almiray <aalmiray@users.sourceforge.com>

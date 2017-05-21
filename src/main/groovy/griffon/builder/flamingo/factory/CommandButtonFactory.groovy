@@ -16,8 +16,8 @@
 
 package griffon.builder.flamingo.factory
 
-import javax.swing.Action
-import org.jvnet.flamingo.common.icon.*
+import org.pushingpixels.flamingo.api.common.icon.EmptyResizableIcon
+import org.pushingpixels.flamingo.api.common.icon.ResizableIcon
 
 /**
  * @author Andres Almiray <aalmiray@users.sourceforge.com>

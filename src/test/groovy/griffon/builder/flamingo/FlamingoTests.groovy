@@ -15,9 +15,6 @@
  */
 
 package griffon.builder.flamingo
-
-import org.jvnet.flamingo.common.*
-
 /**
  * @author Andres Almiray <aalmiray@users.sourceforge.net>
  */

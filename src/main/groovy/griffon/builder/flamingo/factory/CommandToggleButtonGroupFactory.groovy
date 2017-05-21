@@ -17,8 +17,8 @@
 package griffon.builder.flamingo.factory
 
 import groovy.swing.factory.BeanFactory
-import org.jvnet.flamingo.common.CommandToggleButtonGroup
-import org.jvnet.flamingo.common.JCommandToggleButton
+import org.pushingpixels.flamingo.api.common.CommandToggleButtonGroup
+import org.pushingpixels.flamingo.api.common.JCommandToggleButton
 
 /**
  * Based on groovy.swing.factory.ButtonGroup by Danno Ferrin.

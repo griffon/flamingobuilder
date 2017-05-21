@@ -16,9 +16,10 @@
 
 package griffon.builder.flamingo.impl
 
-import java.awt.Color
-import org.jvnet.flamingo.ribbon.*
-import org.jvnet.flamingo.common.icon.*
+import org.pushingpixels.flamingo.api.ribbon.RibbonContextualTaskGroup
+import org.pushingpixels.flamingo.api.ribbon.RibbonTask
+
+import java.awt.*
 
 /**
  * @author Andres Almiray <aalmiray@users.sourceforge.com>

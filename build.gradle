@@ -20,6 +20,7 @@ apply plugin: 'maven'
 sourceCompatibility = '1.5'
 targetCompatibility = '1.5'
 archivesBaseName = 'flamingobuilder'
+version="0.6.0-SNAPSHOT"
 
 configurations {
     deployerJars
@@ -27,50 +28,40 @@ configurations {
 
 repositories {
     flatDir(dirs: file('src/lib'))
+    jcenter()
     mavenCentral()
-    mavenRepo url: 'http://repository.sonatype.org/content/groups/public/'
-    mavenRepo url: 'https://repository.jboss.org/nexus/content/groups/public-jboss'
+//    mavenRepo url: 'http://repository.sonatype.org/content/groups/public/'
+//    mavenRepo url: 'https://repository.jboss.org/nexus/content/groups/public-jboss'
 }
 
 dependencies {
-    groovy  "org.codehaus.groovy:groovy-all:$groovyVersion"
-    compile "org.codehaus.groovy:groovy-all:$groovyVersion",
-            'org.pushingpixels:flamingo:4.1',
-            'xml-apis:xml-apis-ext:1.3.04',
-            'batik:batik-anim:1.7',
-            'batik:batik-awt-util:1.7',
-            'batik:batik-bridge:1.7',
-            'batik:batik-codec:1.7',
-            'batik:batik-css:1.7',
-            'batik:batik-dom:1.7',
-            'batik:batik-ext:1.7',
-            'batik:batik-extension:1.7',
-            'batik:batik-gui-util:1.7',
-            'batik:batik-gvt:1.7',
-            'batik:batik-parser:1.7',
-            'batik:batik-script:1.7',
-            'batik:batik-svg-dom:1.7',
-            'batik:batik-svggen:1.7',
-            'batik:batik-swing:1.7',
-            'batik:batik-transcoder:1.7',
-            'batik:batik-util:1.7',
-            'batik:batik-xml:1.7'
+    def batik="1.9"
+    compile "org.codehaus.groovy:groovy-all:2.4.11"
+    compile 'org.pushingpixels:flamingo:5.2.00-dev'
+    compile 'xml-apis:xml-apis-ext:1.3.04'
+
+    compile "org.apache.xmlgraphics:batik-anim:$batik"
+    compile "org.apache.xmlgraphics:batik-awt-util:$batik"
+    compile "org.apache.xmlgraphics:batik-bridge:$batik"
+    compile "org.apache.xmlgraphics:batik-codec:$batik"
+    compile "org.apache.xmlgraphics:batik-css:$batik"
+    compile "org.apache.xmlgraphics:batik-dom:$batik"
+    compile "org.apache.xmlgraphics:batik-ext:$batik"
+    compile "org.apache.xmlgraphics:batik-extension:$batik"
+    compile "org.apache.xmlgraphics:batik-gui-util:$batik"
+    compile "org.apache.xmlgraphics:batik-gvt:$batik"
+    compile "org.apache.xmlgraphics:batik-parser:$batik"
+    compile "org.apache.xmlgraphics:batik-script:$batik"
+    compile "org.apache.xmlgraphics:batik-svg-dom:$batik"
+    compile "org.apache.xmlgraphics:batik-svggen:$batik"
+    compile "org.apache.xmlgraphics:batik-swing:$batik"
+    compile "org.apache.xmlgraphics:batik-transcoder:$batik"
+    compile "org.apache.xmlgraphics:batik-util:$batik"
+    compile "org.apache.xmlgraphics:batik-xml:$batik"
     testCompile "junit:junit:4.8.2"
-    deployerJars 'org.apache.maven.wagon:wagon-webdav:1.0-beta-2',
-                 'org.apache.maven:maven-ant-tasks:2.1.0'
+//    deployerJars 'org.apache.maven.wagon:wagon-webdav:1.0-beta-2',
+ //                'org.apache.maven:maven-ant-tasks:2.1.0'
 }
-
-configure([compileGroovy, compileTestGroovy]) {
-    groovyOptions.fork(memoryInitialSize: '128M', memoryMaximumSize: '1G')
-    groovyOptions.encoding = "UTF-8"
-}
-
-configure([compileJava, compileTestJava]) {
-    options.deprecation = true
-    options.debug = true
-}
-
-metaInf << fileTree(dir: file('.'), includes: ['LICENSE.txt'])
 
 jar {
     manifest {
@@ -118,81 +109,7 @@ task fullDist(dependsOn: [jar, zipSource, tarSource]) {
     description = "Assembles all packages."
 }
 
-task wrapper(type: Wrapper) {
-    gradleVersion = '1.0-milestone-6'
-    jarFile = 'gradle/wrapper/gradle-wrapper.jar'
-}
-
 artifacts {
     archives jar
 }
 
-installer = install.repositories.mavenInstaller
-def deployer = null
-
-if(!project.hasProperty('codehausUsername')) codehausUsername = ''
-if(!project.hasProperty('codehausPassword')) codehausPassword = ''
-
-uploadArchives {
-    repositories {
-        deployer = mavenDeployer {
-            name = 'codehausDeployer'
-            configuration = configurations.deployerJars
-            uploadDescriptor = true
-            repository(url: codehausReleaseUrl) {
-                authentication(userName: codehausUsername, password: codehausPassword)
-            }
-            snapshotRepository(url: codehausSnapshotUrl) {
-                uniqueVersion = false
-                authentication(userName: codehausUsername, password: codehausPassword)
-            }
-        }
-    }
-}
-
-[installer, deployer].each { repo ->
-    configure(repo) {
-        pom.project {
-            name 'FlamingoBuilder'
-            description 'FlamingoBuilder: building UIs with Groovy/Flamingo'
-            url('http://griffon.codehaus.org/FlamingoBuilder')
-            licenses {
-                license {
-                    name 'The Apache Software License, Version 2.0'
-                    url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-                    distribution 'repo'
-                }
-            }/*
-            distributionManagement {
-                repository {
-                    id('codehaus.org')
-                    name('Griffon Central Repository')
-                    url('dav:https://dav.codehaus.org/repository/griffon/')
-                }
-                snapshotRepository {
-                    uniqueVersion('false')
-                    id('codehaus.org')
-                    name('Griffon Central Development Repository')
-                    url('dav:https://dav.codehaus.org/snapshots.repository/griffon/')
-                }
-            }*/
-            repositories {
-                repository {
-                    id('codehaus-release')
-                    name('Codehaus')
-                    url('http://repository.codehaus.org')
-                }
-                repository {
-                    id('sonatype-release')
-                    name('Sonatype')
-                    url('http://repository.sonatype.org/content/groups/public')
-                }
-                repository {
-                    id('jboss-release')
-                    name('JBoss')
-                    url('https://repository.jboss.org/nexus/content/groups/public-jboss')
-                }
-            }
-        }
-    }
-}

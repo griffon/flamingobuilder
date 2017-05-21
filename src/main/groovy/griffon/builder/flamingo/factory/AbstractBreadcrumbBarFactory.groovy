@@ -16,7 +16,7 @@
 
 package griffon.builder.flamingo.factory
 
-import org.jvnet.flamingo.bcb.BreadcrumbPathListener
+import org.pushingpixels.flamingo.api.bcb.BreadcrumbPathListener
 
 /**
  * @author Andres Almiray <aalmiray@users.sourceforge.com>

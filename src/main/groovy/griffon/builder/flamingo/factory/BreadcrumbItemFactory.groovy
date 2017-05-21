@@ -16,7 +16,7 @@
 
 package griffon.builder.flamingo.factory
 
-import org.jvnet.flamingo.bcb.BreadcrumbItem
+import org.pushingpixels.flamingo.api.bcb.BreadcrumbItem
 
 /**
  * @author Andres Almiray <aalmiray@users.sourceforge.com>
