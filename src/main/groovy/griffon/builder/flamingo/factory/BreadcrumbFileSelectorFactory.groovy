@@ -16,8 +16,7 @@
 
 package griffon.builder.flamingo.factory
 
-import javax.swing.filechooser.FileSystemView
-import org.jvnet.flamingo.bcb.core.BreadcrumbFileSelector
+import org.pushingpixels.flamingo.api.bcb.core.BreadcrumbFileSelector
 
 /**
  * @author Andres Almiray <aalmiray@users.sourceforge.com>

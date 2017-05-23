@@ -16,8 +16,8 @@
 
 package griffon.builder.flamingo.factory
 
-import org.jvnet.flamingo.bcb.JBreadcrumbBar
-import org.jvnet.flamingo.bcb.BreadcrumbBarCallBack
+import org.pushingpixels.flamingo.api.bcb.BreadcrumbBarCallBack
+import org.pushingpixels.flamingo.api.bcb.JBreadcrumbBar
 
 /**
  * @author Andres Almiray <aalmiray@users.sourceforge.com>

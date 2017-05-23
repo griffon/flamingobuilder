@@ -16,8 +16,8 @@
 
 package griffon.builder.flamingo.factory
 
-import java.awt.Dimension
-import org.jvnet.flamingo.svg.*
+import org.pushingpixels.flamingo.api.svg.SvgBatikIcon
+import org.pushingpixels.flamingo.api.svg.SvgBatikResizableIcon
 
 /**
  * @author Andres Almiray <aalmiray@users.sourceforge.com>

@@ -16,10 +16,8 @@
 
 package griffon.builder.flamingo.factory
 
-import groovy.swing.factory.BeanFactory
-import org.jvnet.flamingo.common.JCommandButton
-import org.jvnet.flamingo.common.JCommandButtonPanel
-import org.jvnet.flamingo.common.CommandButtonDisplayState
+import org.pushingpixels.flamingo.api.common.JCommandButton
+import org.pushingpixels.flamingo.api.common.JCommandButtonPanel
 
 /**
  * @author Andres Almiray <aalmiray@users.sourceforge.com>

@@ -16,9 +16,10 @@
 
 package griffon.builder.flamingo.factory
 
-import java.awt.Dimension
-import javax.swing.SwingConstants
-import org.jvnet.flamingo.utils.*
+import org.pushingpixels.flamingo.internal.utils.ArrowResizableIcon
+import org.pushingpixels.flamingo.internal.utils.DoubleArrowResizableIcon
+
+import javax.swing.*
 
 /**
  * @author Andres Almiray <aalmiray@users.sourceforge.com>

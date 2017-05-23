@@ -16,8 +16,8 @@
 
 package griffon.builder.flamingo.factory
 
-import org.jvnet.flamingo.common.AbstractCommandButton
-import org.jvnet.flamingo.common.JCommandButtonStrip
+import org.pushingpixels.flamingo.api.common.AbstractCommandButton
+import org.pushingpixels.flamingo.api.common.JCommandButtonStrip
 
 /**
  * @author Andres Almiray <aalmiray@users.sourceforge.com>

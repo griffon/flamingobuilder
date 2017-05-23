@@ -16,9 +16,10 @@
 
 package griffon.builder.flamingo.factory
 
-import javax.swing.JTree
+import org.pushingpixels.flamingo.api.bcb.core.BreadcrumbTreeAdapterSelector
+
+import javax.swing.*
 import javax.swing.tree.TreeModel
-import org.jvnet.flamingo.bcb.core.BreadcrumbTreeAdapterSelector
 
 /**
  * @author Andres Almiray <aalmiray@users.sourceforge.com>

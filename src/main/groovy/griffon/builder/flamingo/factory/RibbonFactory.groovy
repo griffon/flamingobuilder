@@ -16,15 +16,16 @@
 
 package griffon.builder.flamingo.factory
 
+import griffon.builder.flamingo.impl.MutableRibbonContextualTaskGroup
+import griffon.builder.flamingo.impl.MutableRibbonTask
+import org.pushingpixels.flamingo.api.common.AbstractCommandButton
+import org.pushingpixels.flamingo.api.common.JCommandButton
+import org.pushingpixels.flamingo.api.common.RichTooltip
+import org.pushingpixels.flamingo.api.ribbon.*
+
+import javax.swing.*
+import java.awt.*
 import java.awt.event.ActionListener
-import java.awt.Color
-import java.awt.Image
-import java.awt.Component
-import javax.swing.JComponent
-import org.jvnet.flamingo.common.*
-import org.jvnet.flamingo.ribbon.*
-import org.jvnet.flamingo.common.icon.*
-import griffon.builder.flamingo.impl.*
 
 /**
  * @author Andres Almiray

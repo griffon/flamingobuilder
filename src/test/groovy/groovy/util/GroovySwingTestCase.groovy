@@ -1,8 +1,7 @@
-package groovy.util;
+package groovy.util
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException
-import javax.swing.SwingUtilities;
+import javax.swing.*
+import java.lang.reflect.Constructor
 
 public abstract class GroovySwingTestCase extends GroovyTestCase {
     private static boolean headless;
