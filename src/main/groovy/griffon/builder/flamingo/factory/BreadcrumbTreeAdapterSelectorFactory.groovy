@@ -1,5 +1,5 @@
 /*
- * Copyright 2008-2010 the original author or authors.
+ * Copyright 2008-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,39 +13,38 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package griffon.builder.flamingo.factory
 
 import org.pushingpixels.flamingo.api.bcb.core.BreadcrumbTreeAdapterSelector
 
-import javax.swing.*
+import javax.swing.JTree
 import javax.swing.tree.TreeModel
 
 /**
- * @author Andres Almiray <aalmiray@users.sourceforge.com>
+ * @author Andres Almiray
  */
 class BreadcrumbTreeAdapterSelectorFactory extends AbstractBreadcrumbBarFactory {
-    public Object newInstance( FactoryBuilderSupport builder, Object name, Object value, Map attributes )
-            throws InstantiationException, IllegalAccessException {
-      if( FactoryBuilderSupport.checkValueIsTypeNotString(value, name, BreadcrumbTreeAdapterSelector) ) {
-         return value
-      }
+    Object newInstance(FactoryBuilderSupport builder, Object name, Object value, Map attributes)
+        throws InstantiationException, IllegalAccessException {
+        if (FactoryBuilderSupport.checkValueIsTypeNotString(value, name, BreadcrumbTreeAdapterSelector)) {
+            return value
+        }
 
-      JTree tree = attributes.remove("tree")
-      TreeModel treeModel = attributes.remove("treeModel")
-      BreadcrumbTreeAdapterSelector.TreeAdapter treeAdapter = attributes.remove("treeAdapter")
-      def rootVisible = attributes.remove("rootVisible") ?: true
+        JTree tree = attributes.remove('tree')
+        TreeModel treeModel = attributes.remove('treeModel')
+        BreadcrumbTreeAdapterSelector.TreeAdapter treeAdapter = attributes.remove('treeAdapter')
+        def rootVisible = attributes.remove('rootVisible') ?: true
 
-      if( tree != null ) {
-         if( treeAdapter != null ) {
-            return new BreadcrumbTreeAdapterSelector(tree,treeAdapter)
-         } else {
-            return new BreadcrumbTreeAdapterSelector(tree)
-         }
-      } else if( treeModel != null && treeAdapter != null ) {
-         return new BreadcrumbTreeAdapterSelector(treeModel,treeAdapter,rootVisible)
-      } else {
-         throw new RuntimeException("$name has neither a value argument or one of tree:, treeModel:, or treeAdapter:")
-      }
-   }
+        if (tree != null) {
+            if (treeAdapter != null) {
+                return new BreadcrumbTreeAdapterSelector(tree, treeAdapter)
+            } else {
+                return new BreadcrumbTreeAdapterSelector(tree)
+            }
+        } else if (treeModel != null && treeAdapter != null) {
+            return new BreadcrumbTreeAdapterSelector(treeModel, treeAdapter, rootVisible)
+        } else {
+            throw new RuntimeException("$name has neither a value argument or one of tree:, treeModel:, or treeAdapter:")
+        }
+    }
 }

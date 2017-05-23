@@ -1,5 +1,5 @@
 /*
- * Copyright 2008-2010 the original author or authors.
+ * Copyright 2008-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,55 +13,54 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package griffon.builder.flamingo.factory
 
 import org.pushingpixels.flamingo.api.common.icon.EmptyResizableIcon
 import org.pushingpixels.flamingo.api.common.icon.ResizableIcon
 
 /**
- * @author Andres Almiray <aalmiray@users.sourceforge.com>
+ * @author Andres Almiray
  */
 class CommandButtonFactory extends AbstractFactory {
     private Class beanClass
 
-    CommandButtonFactory( Class beanClass ) {
-       this.beanClass = beanClass
+    CommandButtonFactory(Class beanClass) {
+        this.beanClass = beanClass
     }
 
-    public Object newInstance( FactoryBuilderSupport builder, Object name, Object value, Map attributes )
-            throws InstantiationException, IllegalAccessException {
-      if( value && beanClass.isAssignableFrom(value.getClass()) ) {
-         return value
-      }
+    Object newInstance(FactoryBuilderSupport builder, Object name, Object value, Map attributes)
+        throws InstantiationException, IllegalAccessException {
+        if (value && beanClass.isAssignableFrom(value.getClass())) {
+            return value
+        }
 
-      def icon = null
-      def text = null
-      /*if( value instanceof Action ) {
-         icon = value.getValue(FlamingoFactoryUtils.ICON_PROPERTY) ?: new EmptyResizableIcon(32)
-         text = value.getValue(FlamingoFactoryUtils.NAME_PROPERTY)
-         if( !(icon instanceof ResizableIcon) )
-            throw new IllegalArgumentException("In $name, provided icon: by action is not a ResizableIcon.")
-      } else {*/
-         icon = FlamingoFactoryUtils.createIcon(builder, name, null, attributes)
-         if( !icon ) icon = new EmptyResizableIcon(32)
-         if( !(icon instanceof ResizableIcon) )
+        def icon = null
+        def text = null
+        /*if( value instanceof Action ) {
+           icon = value.getValue(FlamingoFactoryUtils.ICON_PROPERTY) ?: new EmptyResizableIcon(32)
+           text = value.getValue(FlamingoFactoryUtils.NAME_PROPERTY)
+           if( !(icon instanceof ResizableIcon) )
+              throw new IllegalArgumentException("In $name, provided icon: by action is not a ResizableIcon.")
+        } else {*/
+        icon = FlamingoFactoryUtils.createIcon(builder, name, null, attributes)
+        if (!icon) icon = new EmptyResizableIcon(32)
+        if (!(icon instanceof ResizableIcon))
             throw new IllegalArgumentException("In $name a value for icon: must be defined.")
-         text = value instanceof String || value instanceof GString ? value : attributes.remove("text")
-      //}
-      text = text != null ? text.toString() : "" // force GString eval
+        text = value instanceof String || value instanceof GString ? value : attributes.remove("text")
+        //}
+        text = text != null ? text.toString() : "" // force GString eval
 
-      def cmd = beanClass.getDeclaredConstructor([String,ResizableIcon] as Class[]).newInstance(text, icon)
-      //if( value instanceof Action ) FlamingoFactoryUtils.configureFromAction(cmd,value)
-      return cmd
-   }
+        def cmd = beanClass.getDeclaredConstructor([String, ResizableIcon] as Class[]).newInstance(text, icon)
+        //if( value instanceof Action ) FlamingoFactoryUtils.configureFromAction(cmd,value)
+        return cmd
+    }
 
-   public boolean onHandleNodeAttributes( FactoryBuilderSupport builder, Object node, Map attributes ) {
-      FlamingoFactoryUtils.translateCommandButtonConstants(attributes)
-      return true
-   }
+    boolean onHandleNodeAttributes(FactoryBuilderSupport builder, Object node, Map attributes) {
+        FlamingoFactoryUtils.translateCommandButtonConstants(attributes)
+        return true
+    }
 
-   public boolean isLeaf() {
-      return true
-   }
+    boolean isLeaf() {
+        return true
+    }
 }

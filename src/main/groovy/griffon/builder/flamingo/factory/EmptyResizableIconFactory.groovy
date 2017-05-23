@@ -1,5 +1,5 @@
 /*
- * Copyright 2008-2010 the original author or authors.
+ * Copyright 2008-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,27 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package griffon.builder.flamingo.factory
 
 import org.pushingpixels.flamingo.api.common.icon.EmptyResizableIcon
 
 /**
- * @author Andres Almiray <aalmiray@users.sourceforge.com>
+ * @author Andres Almiray
  */
 class EmptyResizableIconFactory extends AbstractFactory {
-    public Object newInstance( FactoryBuilderSupport builder, Object name, Object value, Map attributes )
-            throws InstantiationException, IllegalAccessException {
-      if( FactoryBuilderSupport.checkValueIsTypeNotString(value, name, EmptyResizableIcon) ) {
-         return value
-      }
+    Object newInstance(FactoryBuilderSupport builder, Object name, Object value, Map attributes)
+        throws InstantiationException, IllegalAccessException {
+        if (FactoryBuilderSupport.checkValueIsTypeNotString(value, name, EmptyResizableIcon)) {
+            return value
+        }
 
-      def id = processIconInitialDimAttribute(name, attributes)
+        def id = FlamingoFactoryUtils.processIconInitialDimAttribute(name, attributes)
 
-      return new EmptyResizableIcon(id)
-   }
+        return new EmptyResizableIcon(id)
+    }
 
-   public boolean isLeaf() {
-      return true
-   }
+    boolean isLeaf() {
+        return true
+    }
 }

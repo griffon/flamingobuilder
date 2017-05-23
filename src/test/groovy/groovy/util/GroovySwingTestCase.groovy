@@ -1,9 +1,24 @@
+/*
+ * Copyright 2008-2017 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package groovy.util
 
-import javax.swing.*
+import javax.swing.SwingUtilities
 import java.lang.reflect.Constructor
 
-public abstract class GroovySwingTestCase extends GroovyTestCase {
+abstract class GroovySwingTestCase extends GroovyTestCase {
     private static boolean headless;
 
     /**
@@ -13,7 +28,7 @@ public abstract class GroovySwingTestCase extends GroovyTestCase {
      *
      * @return true if running in headless mode
      */
-    public static boolean isHeadless() {
+    static boolean isHeadless() {
         return headless;
     }
 
@@ -22,11 +37,11 @@ public abstract class GroovySwingTestCase extends GroovyTestCase {
      *
      * @return true if running in headless mode
      */
-    public static boolean getHeadless() {
+    static boolean getHeadless() {
         return isHeadless();
     }
 
-    public static void testInEDT(Closure test) {
+    static void testInEDT(Closure test) {
         Throwable exception = null
         if (headless) {
             return

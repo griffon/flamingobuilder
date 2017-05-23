@@ -1,5 +1,5 @@
 /*
- * Copyright 2008-2010 the original author or authors.
+ * Copyright 2008-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package griffon.builder.flamingo.factory
 
 import org.pushingpixels.flamingo.api.common.icon.FilteredResizableIcon
@@ -22,25 +21,25 @@ import org.pushingpixels.flamingo.api.common.icon.ResizableIcon
 import java.awt.image.BufferedImageOp
 
 /**
- * @author Andres Almiray <aalmiray@users.sourceforge.com>
+ * @author Andres Almiray
  */
 class FilteredResizableIconFactory extends AbstractFactory {
-    public Object newInstance( FactoryBuilderSupport builder, Object name, Object value, Map attributes )
-            throws InstantiationException, IllegalAccessException {
-      if( FactoryBuilderSupport.checkValueIsTypeNotString(value, name, FilteredResizableIcon) ) {
-         return value
-      }
+    Object newInstance(FactoryBuilderSupport builder, Object name, Object value, Map attributes)
+        throws InstantiationException, IllegalAccessException {
+        if (FactoryBuilderSupport.checkValueIsTypeNotString(value, name, FilteredResizableIcon)) {
+            return value
+        }
 
-      def icon = FlamingoFactoryUtils.createIcon(builder, name, value, attributes)
-      if( !icon || !(icon instanceof ResizableIcon) )
-         throw new IllegalArgumentException("In $name a value for icon: must be defined.")
-      def filter = attributes.remove("filter")
-      if( !filter || !(filter instanceof BufferedImageOp) )
-         throw new IllegalArgumentException("filteredIcon requires a BufferedImageOp as filter.")
-      return new FilteredResizableIcon(icon,filter)
-   }
+        def icon = FlamingoFactoryUtils.createIcon(builder, name, value, attributes)
+        if (!icon || !(icon instanceof ResizableIcon))
+            throw new IllegalArgumentException("In $name a value for icon: must be defined.")
+        def filter = attributes.remove('filter')
+        if (!filter || !(filter instanceof BufferedImageOp))
+            throw new IllegalArgumentException('filteredIcon requires a BufferedImageOp as filter.')
+        return new FilteredResizableIcon(icon, filter)
+    }
 
-   public boolean isLeaf() {
-      return true
-   }
+    boolean isLeaf() {
+        return true
+    }
 }

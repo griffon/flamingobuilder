@@ -1,5 +1,5 @@
 /*
- * Copyright 2008-2010 the original author or authors.
+ * Copyright 2008-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package griffon.builder.flamingo.factory
 
 import groovy.swing.factory.BeanFactory
@@ -23,22 +22,22 @@ import org.pushingpixels.flamingo.api.common.JCommandToggleButton
 /**
  * Based on groovy.swing.factory.ButtonGroup by Danno Ferrin.
  *
- * @author Andres Almiray <aalmiray@users.sourceforge.net>
+ * @author Andres Almiray
  */
 class CommandToggleButtonGroupFactory extends BeanFactory {
-    public static final String DELEGATE_PROPERTY_BUTTON_GROUP = "_delegateProperty:buttonGroup";
-    public static final String DEFAULT_DELEGATE_PROPERTY_BUTTON_GROUP = "buttonGroup";
+    public static final String DELEGATE_PROPERTY_BUTTON_GROUP = '_delegateProperty:buttonGroup';
+    public static final String DEFAULT_DELEGATE_PROPERTY_BUTTON_GROUP = 'buttonGroup';
 
-    public CommandToggleButtonGroupFactory() {
+    CommandToggleButtonGroupFactory() {
         super(CommandToggleButtonGroup, true)
     }
 
-    public Object newInstance(FactoryBuilderSupport builder, Object name, Object value, Map attributes) {
-        builder.context[DELEGATE_PROPERTY_BUTTON_GROUP] = attributes.remove("buttonGroupProperty") ?: DEFAULT_DELEGATE_PROPERTY_BUTTON_GROUP
+    Object newInstance(FactoryBuilderSupport builder, Object name, Object value, Map attributes) {
+        builder.context[DELEGATE_PROPERTY_BUTTON_GROUP] = attributes.remove('buttonGroupProperty') ?: DEFAULT_DELEGATE_PROPERTY_BUTTON_GROUP
         return super.newInstance(builder, name, value, attributes)
     }
 
-    public static buttonGroupAttributeDelegate(def builder, def node, def attributes) {
+    static buttonGroupAttributeDelegate(def builder, def node, def attributes) {
         def buttonGroupAttr = builder?.context?.getAt(DELEGATE_PROPERTY_BUTTON_GROUP) ?: DEFAULT_DELEGATE_PROPERTY_BUTTON_GROUP
         if (attributes.containsKey(buttonGroupAttr)) {
             def o = attributes.get(buttonGroupAttr)

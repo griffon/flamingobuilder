@@ -1,5 +1,5 @@
 /*
- * Copyright 2008-2010 the original author or authors.
+ * Copyright 2008-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,24 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package griffon.builder.flamingo.factory
 
 import org.pushingpixels.flamingo.api.bcb.BreadcrumbPathListener
 
 /**
- * @author Andres Almiray <aalmiray@users.sourceforge.com>
+ * @author Andres Almiray
  */
 abstract class AbstractBreadcrumbBarFactory extends AbstractFactory {
-   public boolean isLeaf() {
-      return true
-   }
+    boolean isLeaf() {
+        return true
+    }
 
-   public boolean onHandleNodeAttributes( FactoryBuilderSupport builder, Object node, Map attributes ) {
-      // expose model events
-      def eventHandler = attributes.remove("breadcrumbPathEvent")
-      if( eventHandler ) {
-         node.model.addPathListener(eventHandler as BreadcrumbPathListener)
-      }
-   }
+    boolean onHandleNodeAttributes(FactoryBuilderSupport builder, Object node, Map attributes) {
+        // expose model events
+        def eventHandler = attributes.remove('breadcrumbPathEvent')
+        if (eventHandler) {
+            node.model.addPathListener(eventHandler as BreadcrumbPathListener)
+        }
+    }
 }

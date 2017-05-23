@@ -1,5 +1,5 @@
 /*
- * Copyright 2008-2012 the original author or authors.
+ * Copyright 2008-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,102 +14,90 @@
  * limitations under the License.
  */
 
-apply plugin: 'groovy'
-apply plugin: 'maven'
-
-sourceCompatibility = '1.5'
-targetCompatibility = '1.5'
-archivesBaseName = 'flamingobuilder'
-version="0.6.0-SNAPSHOT"
-
-configurations {
-    deployerJars
+plugins {
+    id 'groovy'
+    id 'idea'
+    id 'maven-publish'
+    id 'com.jfrog.bintray'             version '1.7.3'
+    id 'net.nemerosa.versioning'       version '2.6.0'
+    id 'com.github.ben-manes.versions' version '0.14.0'
+    id 'com.gradle.plugin-publish'     version '0.9.7'
+    id 'com.github.hierynomus.license' version '0.11.0'
+    id 'com.github.kt3k.coveralls'     version '2.8.1'
 }
+
+apply from: 'gradle/credentials.gradle'
+apply from: 'gradle/publishing.gradle'
+apply from: 'gradle/code-quality.gradle'
 
 repositories {
     flatDir(dirs: file('src/lib'))
     jcenter()
     mavenCentral()
-//    mavenRepo url: 'http://repository.sonatype.org/content/groups/public/'
-//    mavenRepo url: 'https://repository.jboss.org/nexus/content/groups/public-jboss'
+}
+
+dependencyUpdates.resolutionStrategy = {
+    componentSelection { rules ->
+        rules.all { selection ->
+            boolean rejected = ['alpha', 'beta', 'rc', 'cr'].any { qualifier ->
+                selection.candidate.version ==~ /(?i).*[.-]${qualifier}[.\d-]*/
+            }
+            if (rejected) {
+                selection.reject('Release candidate')
+            }
+        }
+    }
 }
 
 dependencies {
-    def batik="1.9"
-    compile "org.codehaus.groovy:groovy-all:2.4.11"
+    compile "org.codehaus.groovy:groovy-all:$groovyVersion"
     compile 'org.pushingpixels:flamingo:5.2.00-dev'
     compile 'xml-apis:xml-apis-ext:1.3.04'
 
-    compile "org.apache.xmlgraphics:batik-anim:$batik"
-    compile "org.apache.xmlgraphics:batik-awt-util:$batik"
-    compile "org.apache.xmlgraphics:batik-bridge:$batik"
-    compile "org.apache.xmlgraphics:batik-codec:$batik"
-    compile "org.apache.xmlgraphics:batik-css:$batik"
-    compile "org.apache.xmlgraphics:batik-dom:$batik"
-    compile "org.apache.xmlgraphics:batik-ext:$batik"
-    compile "org.apache.xmlgraphics:batik-extension:$batik"
-    compile "org.apache.xmlgraphics:batik-gui-util:$batik"
-    compile "org.apache.xmlgraphics:batik-gvt:$batik"
-    compile "org.apache.xmlgraphics:batik-parser:$batik"
-    compile "org.apache.xmlgraphics:batik-script:$batik"
-    compile "org.apache.xmlgraphics:batik-svg-dom:$batik"
-    compile "org.apache.xmlgraphics:batik-svggen:$batik"
-    compile "org.apache.xmlgraphics:batik-swing:$batik"
-    compile "org.apache.xmlgraphics:batik-transcoder:$batik"
-    compile "org.apache.xmlgraphics:batik-util:$batik"
-    compile "org.apache.xmlgraphics:batik-xml:$batik"
-    testCompile "junit:junit:4.8.2"
-//    deployerJars 'org.apache.maven.wagon:wagon-webdav:1.0-beta-2',
- //                'org.apache.maven:maven-ant-tasks:2.1.0'
+    compile "org.apache.xmlgraphics:batik-anim:$batikVersion"
+    compile "org.apache.xmlgraphics:batik-awt-util:$batikVersion"
+    compile "org.apache.xmlgraphics:batik-bridge:$batikVersion"
+    compile "org.apache.xmlgraphics:batik-codec:$batikVersion"
+    compile "org.apache.xmlgraphics:batik-css:$batikVersion"
+    compile "org.apache.xmlgraphics:batik-dom:$batikVersion"
+    compile "org.apache.xmlgraphics:batik-ext:$batikVersion"
+    compile "org.apache.xmlgraphics:batik-extension:$batikVersion"
+    compile "org.apache.xmlgraphics:batik-gui-util:$batikVersion"
+    compile "org.apache.xmlgraphics:batik-gvt:$batikVersion"
+    compile "org.apache.xmlgraphics:batik-parser:$batikVersion"
+    compile "org.apache.xmlgraphics:batik-script:$batikVersion"
+    compile "org.apache.xmlgraphics:batik-svg-dom:$batikVersion"
+    compile "org.apache.xmlgraphics:batik-svggen:$batikVersion"
+    compile "org.apache.xmlgraphics:batik-swing:$batikVersion"
+    compile "org.apache.xmlgraphics:batik-transcoder:$batikVersion"
+    compile "org.apache.xmlgraphics:batik-util:$batikVersion"
+    compile "org.apache.xmlgraphics:batik-xml:$batikVersion"
+    testCompile "junit:junit:4.12"
 }
 
-jar {
-    manifest {
-        attributes(
-            'Built-By': System.properties['user.name'],
-            'Created-By': System.properties['java.vm.version'] + " (" + System.properties['java.vm.vendor'] + ")",
-            'Implementation-Version': version,
-            'Implementation-Vendor': 'griffon.codehaus.org',
-            'Implementation-Title': 'FlamingoBuilder'
-        )
-    }
+compileGroovy {
+    sourceCompatibility = project.sourceCompatibility
+    targetCompatibility = project.targetCompatibility
 }
 
-task distSource(type: Copy) {
-    destinationDir = "$buildDir/distributions/source" as File
-    from(project.file('.')) {
-        exclude 'build'
-        exclude '**/.git*'
-        exclude '.git*'
-        exclude '.gradle*'
-        exclude '**/*.ipr'
-        exclude '**/*.iws'
-        exclude '**/*.iml'
-    }
+task sourcesJar(type: Jar) {
+    group 'Build'
+    description 'An archive of the source code'
+    classifier 'sources'
+    from sourceSets.main.allSource
 }
 
-task zipSource(type: Zip) {
-    description = "Zips the source distribution."
-    dependsOn { distSource }
-    classifier = 'src'
-    into "flamingobuilder-$version"
-    from "$buildDir/distributions/source"
+task javadocJar(type: Jar, dependsOn: groovydoc) {
+    group 'Build'
+    description 'An archive of the javadoc'
+    classifier 'javadoc'
+    from groovydoc.destinationDir
 }
 
-task tarSource(type: Tar) {
-    description = "Tars the source distribution."
-    dependsOn { distSource }
-    compression = Compression.GZIP
-    classifier = 'src'
-    into "flamingobuilder-$version"
-    from "$buildDir/distributions/source"
-}
-
-task fullDist(dependsOn: [jar, zipSource, tarSource]) {
-    description = "Assembles all packages."
-}
+jar.finalizedBy sourcesJar
+jar.finalizedBy javadocJar
 
 artifacts {
-    archives jar
+    sourcesJar
+    javadocJar
 }
-

@@ -1,5 +1,5 @@
 /*
- * Copyright 2008-2010 the original author or authors.
+ * Copyright 2008-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,30 +13,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package griffon.builder.flamingo.factory
 
 import org.pushingpixels.flamingo.api.common.icon.DecoratedResizableIcon
 import org.pushingpixels.flamingo.api.common.icon.ResizableIcon
 
 /**
- * @author Andres Almiray <aalmiray@users.sourceforge.com>
+ * @author Andres Almiray
  */
 class DecoratedResizableIconFactory extends AbstractFactory {
-    public Object newInstance( FactoryBuilderSupport builder, Object name, Object value, Map attributes )
-            throws InstantiationException, IllegalAccessException {
-      if( FactoryBuilderSupport.checkValueIsTypeNotString(value, name, DecoratedResizableIcon) ) {
-         return value
-      }
+    Object newInstance(FactoryBuilderSupport builder, Object name, Object value, Map attributes)
+        throws InstantiationException, IllegalAccessException {
+        if (FactoryBuilderSupport.checkValueIsTypeNotString(value, name, DecoratedResizableIcon)) {
+            return value
+        }
 
-      def icon = FlamingoFactoryUtils.createIcon(builder, name, value, attributes)
-      if( !(icon instanceof ResizableIcon) )
-         throw new IllegalArgumentException("$name requires a ResizableIcon as delegate, current one is ${icon.class.name}")
-      def decorators = attributes.remove("decorators") ?: []
-      return new DecoratedResizableIcon(icon,decorators)
-   }
+        def icon = FlamingoFactoryUtils.createIcon(builder, name, value, attributes)
+        if (!(icon instanceof ResizableIcon))
+            throw new IllegalArgumentException("$name requires a ResizableIcon as delegate, current one is ${icon.class.name}")
+        def decorators = attributes.remove('decorators') ?: []
+        return new DecoratedResizableIcon(icon, decorators)
+    }
 
-   public boolean isLeaf() {
-      return true
-   }
+    boolean isLeaf() {
+        return true
+    }
 }

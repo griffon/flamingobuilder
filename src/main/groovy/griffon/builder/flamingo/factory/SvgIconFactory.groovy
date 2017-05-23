@@ -1,5 +1,5 @@
 /*
- * Copyright 2008-2010 the original author or authors.
+ * Copyright 2008-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,38 +13,37 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package griffon.builder.flamingo.factory
 
 import org.pushingpixels.flamingo.api.svg.SvgBatikIcon
 import org.pushingpixels.flamingo.api.svg.SvgBatikResizableIcon
 
 /**
- * @author Andres Almiray <aalmiray@users.sourceforge.com>
+ * @author Andres Almiray
  */
 class SvgIconFactory extends AbstractFactory {
-    public Object newInstance( FactoryBuilderSupport builder, Object name, Object value, Map attributes )
-            throws InstantiationException, IllegalAccessException {
-      if( FactoryBuilderSupport.checkValueIsTypeNotString(value, name, SvgBatikIcon) ) {
-         return value
-      }
+    Object newInstance(FactoryBuilderSupport builder, Object name, Object value, Map attributes)
+        throws InstantiationException, IllegalAccessException {
+        if (FactoryBuilderSupport.checkValueIsTypeNotString(value, name, SvgBatikIcon)) {
+            return value
+        }
 
-      value = FlamingoFactoryUtils.processIconAttributes(builder, name, value, attributes)
+        value = FlamingoFactoryUtils.processIconAttributes(builder, name, value, attributes)
 
-      if (value == null) {
-         throw new RuntimeException("$name has neither a value argument or one of url:, file:, or resource:")
-      }
+        if (value == null) {
+            throw new RuntimeException("$name has neither a value argument or one of url:, file:, or resource:")
+        }
 
-      def id = FlamingoFactoryUtils.processIconInitialDimAttribute(name, attributes)
+        def id = FlamingoFactoryUtils.processIconInitialDimAttribute(name, attributes)
 
-      if( attributes.remove("zip") ) {
-         return SvgBatikResizableIcon.getSvgzIcon( value, id )
-      } else {
-         return SvgBatikResizableIcon.getSvgIcon( value, id )
-      }
-   }
+        if (attributes.remove("zip")) {
+            return SvgBatikResizableIcon.getSvgzIcon(value, id)
+        } else {
+            return SvgBatikResizableIcon.getSvgIcon(value, id)
+        }
+    }
 
-   public boolean isLeaf() {
-      return true
-   }
+    boolean isLeaf() {
+        return true
+    }
 }

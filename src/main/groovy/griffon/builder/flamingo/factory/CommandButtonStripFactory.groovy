@@ -1,5 +1,5 @@
 /*
- * Copyright 2008-2010 the original author or authors.
+ * Copyright 2008-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,28 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package griffon.builder.flamingo.factory
 
 import org.pushingpixels.flamingo.api.common.AbstractCommandButton
 import org.pushingpixels.flamingo.api.common.JCommandButtonStrip
 
 /**
- * @author Andres Almiray <aalmiray@users.sourceforge.com>
+ * @author Andres Almiray
  */
 class CommandButtonStripFactory extends AbstractFactory {
-    public Object newInstance( FactoryBuilderSupport builder, Object name, Object value, Map attributes )
-            throws InstantiationException, IllegalAccessException {
-        if( FactoryBuilderSupport.checkValueIsTypeNotString(value, name, JCommandButtonStrip) ) {
+    Object newInstance(FactoryBuilderSupport builder, Object name, Object value, Map attributes)
+        throws InstantiationException, IllegalAccessException {
+        if (FactoryBuilderSupport.checkValueIsTypeNotString(value, name, JCommandButtonStrip)) {
             return value
         }
 
         FlamingoFactoryUtils.translateCommandButtonConstants(attributes)
-        def stripOrientation = attributes.remove("stripOrientation") ?: JCommandButtonStrip.StripOrientation.HORIZONTAL
+        def stripOrientation = attributes.remove('stripOrientation') ?: JCommandButtonStrip.StripOrientation.HORIZONTAL
         return new JCommandButtonStrip(stripOrientation)
     }
 
-    public void setChild(FactoryBuilderSupport builder, Object parent, Object child) {
+    void setChild(FactoryBuilderSupport builder, Object parent, Object child) {
         if (!(child instanceof AbstractCommandButton)) {
             return
         }
@@ -49,9 +48,5 @@ class CommandButtonStripFactory extends AbstractFactory {
         } catch (MissingPropertyException mpe) {
             parent.add(child)
         }
-    }
-
-    public boolean isLeaf() {
-        return false
     }
 }

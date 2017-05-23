@@ -1,5 +1,5 @@
 /*
- * Copyright 2008-2010 the original author or authors.
+ * Copyright 2008-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,23 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package griffon.builder.flamingo.factory
 
 import org.pushingpixels.flamingo.api.common.JCommandButton
 import org.pushingpixels.flamingo.api.common.JCommandButtonPanel
 
 /**
- * @author Andres Almiray <aalmiray@users.sourceforge.com>
+ * @author Andres Almiray
  */
 class CommandButtonPanelFactory extends AbstractFactory {
-    public static final String DELEGATE_PROPERTY_GROUP_NAME = "_delegateProperty:groupName";
-    public static final String DEFAULT_DELEGATE_PROPERTY_GROUP_NAME = "groupName";
-    public static final String DELEGATE_PROPERTY_GROUP_INDEX = "_delegateProperty:groupIndex";
-    public static final String DEFAULT_DELEGATE_PROPERTY_GROUP_INDEX = "groupIndex";
+    public static final String DELEGATE_PROPERTY_GROUP_NAME = '_delegateProperty:groupName';
+    public static final String DEFAULT_DELEGATE_PROPERTY_GROUP_NAME = 'groupName';
+    public static final String DELEGATE_PROPERTY_GROUP_INDEX = '_delegateProperty:groupIndex';
+    public static final String DEFAULT_DELEGATE_PROPERTY_GROUP_INDEX = 'groupIndex';
 
-    public Object newInstance( FactoryBuilderSupport builder, Object name, Object value, Map attributes )
-            throws InstantiationException, IllegalAccessException {
+    Object newInstance(FactoryBuilderSupport builder, Object name, Object value, Map attributes)
+        throws InstantiationException, IllegalAccessException {
         def newChild = newPanel(builder, name, value, attributes)
         builder.context.commandButtonPanelFactoryClosure =
             { FactoryBuilderSupport cBuilder, Object cNode, Map cAttributes ->
@@ -37,37 +36,37 @@ class CommandButtonPanelFactory extends AbstractFactory {
             }
         builder.addAttributeDelegate(builder.context.commandButtonPanelFactoryClosure)
 
-        builder.context[DELEGATE_PROPERTY_GROUP_NAME] = attributes.remove("groupNameProperty") ?: DEFAULT_DELEGATE_PROPERTY_GROUP_NAME
-        builder.context[DELEGATE_PROPERTY_GROUP_INDEX] = attributes.remove("groupIndexProperty") ?: DEFAULT_DELEGATE_PROPERTY_GROUP_INDEX
+        builder.context[DELEGATE_PROPERTY_GROUP_NAME] = attributes.remove('groupNameProperty') ?: DEFAULT_DELEGATE_PROPERTY_GROUP_NAME
+        builder.context[DELEGATE_PROPERTY_GROUP_INDEX] = attributes.remove('groupIndexProperty') ?: DEFAULT_DELEGATE_PROPERTY_GROUP_INDEX
 
         return newChild
     }
 
-   private JCommandButtonPanel newPanel( FactoryBuilderSupport builder, Object name, Object value, Map attributes )
-            throws InstantiationException, IllegalAccessException {
-      if( FactoryBuilderSupport.checkValueIsTypeNotString(value, name, JCommandButtonPanel) ) {
-         return value
-      }
+    private JCommandButtonPanel newPanel(FactoryBuilderSupport builder, Object name, Object value, Map attributes)
+        throws InstantiationException, IllegalAccessException {
+        if (FactoryBuilderSupport.checkValueIsTypeNotString(value, name, JCommandButtonPanel)) {
+            return value
+        }
 
-      def startingDimension = attributes.remove("startingDimension")
-      if(startingDimension) return new JCommandButtonPanel(startingDimension)
-      FlamingoFactoryUtils.translateCommandButtonConstants(attributes)
-      def commandButtonDisplayState = attributes.remove("commandButtonDisplayState")
-      if(commandButtonDisplayState) return new JCommandButtonPanel(commandButtonDisplayState)
-      def panel = new JCommandButtonPanel()
-      panel.iconDimension = -1
-      return panel
-   }
+        def startingDimension = attributes.remove('startingDimension')
+        if (startingDimension) return new JCommandButtonPanel(startingDimension)
+        FlamingoFactoryUtils.translateCommandButtonConstants(attributes)
+        def commandButtonDisplayState = attributes.remove('commandButtonDisplayState')
+        if (commandButtonDisplayState) return new JCommandButtonPanel(commandButtonDisplayState)
+        def panel = new JCommandButtonPanel()
+        panel.iconDimension = -1
+        return panel
+    }
 
-    public static void inspectChild(FactoryBuilderSupport builder, Object node, Map attributes) {
+    static void inspectChild(FactoryBuilderSupport builder, Object node, Map attributes) {
         def name = attributes.remove(builder?.parentContext?.getAt(DELEGATE_PROPERTY_GROUP_NAME) ?: DEFAULT_DELEGATE_PROPERTY_GROUP_NAME)
         def index = attributes.remove(builder?.parentContext?.getAt(DELEGATE_PROPERTY_GROUP_INDEX) ?: DEFAULT_DELEGATE_PROPERTY_GROUP_INDEX)
 
         builder.context.put(node, [name, index])
     }
 
-    public void setChild(FactoryBuilderSupport builder, Object parent, Object child) {
-        if (!(child instanceof JCommandButton) ) {
+    void setChild(FactoryBuilderSupport builder, Object parent, Object child) {
+        if (!(child instanceof JCommandButton)) {
             return
         }
         try {
@@ -78,26 +77,22 @@ class CommandButtonPanelFactory extends AbstractFactory {
 
             int count = parent.groupCount
             boolean found = false
-            for( i in (0..<count) ) {
-               if( parent.getGroupTitleAt(i) == ops[0] ) found = true
+            for (i in (0..<count)) {
+                if (parent.getGroupTitleAt(i) == ops[0]) found = true
             }
-            if( !found ) parent.addButtonGroup(ops[0])
-            if( ops[1] == null ) {
-               parent.addButtonToGroup(ops[0],child)
+            if (!found) parent.addButtonGroup(ops[0])
+            if (ops[1] == null) {
+                parent.addButtonToGroup(ops[0], child)
             } else {
-               parent.addButtonToGroup(ops[0],ops[1],child)
+                parent.addButtonToGroup(ops[0], ops[1], child)
             }
         } catch (MissingPropertyException mpe) {
             parent.add(child)
         }
     }
 
-    public void onNodeCompleted( FactoryBuilderSupport builder, Object parent, Object node ) {
-        super.onNodeCompleted (builder, parent, node)
+    void onNodeCompleted(FactoryBuilderSupport builder, Object parent, Object node) {
+        super.onNodeCompleted(builder, parent, node)
         builder.removeAttributeDelegate(builder.context.commandButtonPanelFactoryClosure)
     }
-
-   public boolean isLeaf() {
-      return false
-   }
 }

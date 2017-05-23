@@ -1,5 +1,5 @@
 /*
- * Copyright 2003-2010 the original author or authors.
+ * Copyright 2008-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,20 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package griffon.builder.flamingo.factory
 
 import groovy.swing.factory.RootPaneContainerFactory
 import org.pushingpixels.flamingo.api.ribbon.JRibbonFrame
 
-import javax.swing.*
+import javax.swing.JMenuBar
 
 /**
  * @author Danno Ferrin
  * @author Andres Almiray
  */
-public class RibbonFrameFactory extends RootPaneContainerFactory {
-    public Object newInstance(FactoryBuilderSupport builder, Object name, Object value, Map attributes) throws InstantiationException, IllegalAccessException {
+class RibbonFrameFactory extends RootPaneContainerFactory {
+    Object newInstance(FactoryBuilderSupport builder, Object name, Object value, Map attributes) throws InstantiationException, IllegalAccessException {
         JRibbonFrame frame
         if (FactoryBuilderSupport.checkValueIsType(value, name, JRibbonFrame)) {
             frame = value
@@ -37,7 +36,7 @@ public class RibbonFrameFactory extends RootPaneContainerFactory {
         return frame
     }
 
-    public void setChild(FactoryBuilderSupport build, Object parent, Object child) {
+    void setChild(FactoryBuilderSupport build, Object parent, Object child) {
         if (child instanceof JMenuBar) {
             parent.JMenuBar = child
         } else {

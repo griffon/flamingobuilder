@@ -1,5 +1,5 @@
 /*
- * Copyright 2008-2010 the original author or authors.
+ * Copyright 2008-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package griffon.builder.flamingo.impl
 
 import org.pushingpixels.flamingo.api.common.icon.EmptyResizableIcon
@@ -22,29 +21,29 @@ import org.pushingpixels.flamingo.api.ribbon.JRibbonBand
 import org.pushingpixels.flamingo.api.ribbon.RibbonTask
 
 /**
- * @author Andres Almiray <aalmiray@users.sourceforge.com>
+ * @author Andres Almiray
  */
 class MutableRibbonTask extends RibbonTask {
-   private static final JRibbonBand DEFAULT_BAND = new JRibbonBand("", new EmptyResizableIcon(16))
+    private static final JRibbonBand DEFAULT_BAND = new JRibbonBand("", new EmptyResizableIcon(16))
 
-   MutableRibbonTask(String title, AbstractRibbonBand<?>... bands) {
-      super(title, bands)
-   }
+    MutableRibbonTask(String title, AbstractRibbonBand<?>... bands) {
+        super(title, bands)
+    }
 
-   MutableRibbonTask( String title ) {
-      super(title, [DEFAULT_BAND] as AbstractRibbonBand[])
-   }
+    MutableRibbonTask(String title) {
+        super(title, [DEFAULT_BAND] as AbstractRibbonBand[])
+    }
 
-   void addBand( JRibbonBand band ) {
-      if( bands[0] == DEFAULT_BAND ) {
-         bandsField.clear()
-      }
-      bandsField.add(band)
-   }
+    void addBand(JRibbonBand band) {
+        if (bands[0] == DEFAULT_BAND) {
+            bandsField.clear()
+        }
+        bandsField.add(band)
+    }
 
-   private getBandsField() {
-      def field = this.class.superclass.getDeclaredField("bands")
-      field.accessible = true
-      return field.get(this)
-   }
+    private getBandsField() {
+        def field = this.class.superclass.getDeclaredField('bands')
+        field.accessible = true
+        return field.get(this)
+    }
 }

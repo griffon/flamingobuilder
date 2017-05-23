@@ -1,5 +1,5 @@
 /*
- * Copyright 2007-2010 the original author or authors.
+ * Copyright 2008-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,40 +13,39 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package griffon.builder.flamingo
 /**
- * @author Andres Almiray <aalmiray@users.sourceforge.net>
+ * @author Andres Almiray
  */
 class FlamingoTests extends GroovySwingTestCase {
-   void testCommandButton() {
-      testInEDT {
-         def flamingo = new FlamingoBuilder()
-         def cmd = flamingo.commandButton("CMD")
-         assert cmd.text == "CMD"
-         //cmd = flamingo.commandButton("CMD", icon: flamingo.svgIcon(resource: "icons/edit-paste.svg", class: FlamingoTests))
-         //assert cmd.text == "CMD"
+    void testCommandButton() {
+        testInEDT {
+            def flamingo = new FlamingoBuilder()
+            def cmd = flamingo.commandButton("CMD")
+            assert cmd.text == "CMD"
+            //cmd = flamingo.commandButton("CMD", icon: flamingo.svgIcon(resource: "icons/edit-paste.svg", class: FlamingoTests))
+            //assert cmd.text == "CMD"
 
-         /*
-         boolean called = false
-         flamingo.noparent {
-            actions {
-              action( id: "cmdAction",
-                 name: "CMD",
-                 icon: svgIcon(resource: "icons/edit-paste.svg", class: FlamingoTests),
-                 closure: { called = true; println "1111" },
-                 shortDescription: "tooltip",
-                 enabled: false)
+            /*
+            boolean called = false
+            flamingo.noparent {
+               actions {
+                 action( id: "cmdAction",
+                    name: "CMD",
+                    icon: svgIcon(resource: "icons/edit-paste.svg", class: FlamingoTests),
+                    closure: { called = true; println "1111" },
+                    shortDescription: "tooltip",
+                    enabled: false)
+               }
+               commandButton(cmdAction, id: "cmd")
             }
-            commandButton(cmdAction, id: "cmd")
-         }
-         cmd = flamingo.cmd
-         assert cmd.text == "CMD"
-         assert cmd.enabled == false
-         cmd.enabled = true
-         cmd.doActionClick()
-         assert called
-         */
-      }
-   }
+            cmd = flamingo.cmd
+            assert cmd.text == "CMD"
+            assert cmd.enabled == false
+            cmd.enabled = true
+            cmd.doActionClick()
+            assert called
+            */
+        }
+    }
 }

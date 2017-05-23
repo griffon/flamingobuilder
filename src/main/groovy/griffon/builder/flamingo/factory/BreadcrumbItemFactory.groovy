@@ -1,5 +1,5 @@
 /*
- * Copyright 2008-2010 the original author or authors.
+ * Copyright 2008-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,30 +13,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package griffon.builder.flamingo.factory
 
 import org.pushingpixels.flamingo.api.bcb.BreadcrumbItem
 
 /**
- * @author Andres Almiray <aalmiray@users.sourceforge.com>
+ * @author Andres Almiray
  */
 class BreadcrumbItemFactory extends AbstractFactory {
-    public Object newInstance( FactoryBuilderSupport builder, Object name, Object value, Map attributes )
-            throws InstantiationException, IllegalAccessException {
-      if( FactoryBuilderSupport.checkValueIsTypeNotString(value, name, BreadcrumbItem) ) {
-         return value
-      }
+    Object newInstance(FactoryBuilderSupport builder, Object name, Object value, Map attributes)
+        throws InstantiationException, IllegalAccessException {
+        if (FactoryBuilderSupport.checkValueIsTypeNotString(value, name, BreadcrumbItem)) {
+            return value
+        }
 
-      def key = attributes.remove("key")
-      if( !key ) throw new IllegalArgumentException("$name requires a key attribute")
-      def data = attributes.remove("date")
-      def title = value instanceof String ? value : attributes.remove("text")
-      title = title ?: ""
-      return data != null ? new BreadcrumbItem(key, data) : new BreadcrumbItem(key)
-   }
+        def key = attributes.remove('key')
+        if (!key) throw new IllegalArgumentException("$name requires a key attribute")
+        def data = attributes.remove('date')
+        def title = value instanceof String ? value : attributes.remove('text')
+        title = title ?: ''
+        return data != null ? new BreadcrumbItem(key, data) : new BreadcrumbItem(key)
+    }
 
-   public boolean isLeaf() {
-      return true
-   }
+    boolean isLeaf() {
+        return true
+    }
 }
